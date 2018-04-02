@@ -2,13 +2,13 @@
 
 import sys
 
-from random import randint
+import random
 
 POSSIBLE_GUESSES = ['rock', 'paper', 'scissors']
 
 def get_computer_guess():
     """Generates a random guess from the computer"""
-    computer_guess = POSSIBLE_GUESSES[randint(0, 2)]
+    computer_guess = POSSIBLE_GUESSES[random.randint(0, 2)]
     print("Computer guesses: {}".format(computer_guess.capitalize()))
     return computer_guess
 
@@ -16,8 +16,8 @@ def is_human_guess_valid(human_guess):
     """Test to see if a human guess is between 1 and 3"""
     try:
         human_guess = int(human_guess)
-    except TypeError:
-        raise TypeError
+    except ValueError:
+        raise ValueError
     guess_valid = True
     if human_guess < 1 or human_guess > 3:
         guess_valid = False
@@ -37,10 +37,10 @@ def get_human_guess():
     try:
         if not is_human_guess_valid(human_guess):
             print("Invalid guess.")
-            sys.exit(0)
+            sys.exit(1)
     except ValueError:
         print("Invalid guess.")
-        sys.exit(0)
+        sys.exit(1)
 
     return POSSIBLE_GUESSES[int(human_guess) - 1]
 
